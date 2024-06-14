@@ -1,6 +1,6 @@
 # Movie Recommendation System
 
-This project implements a simple movie recommendation system using collaborative filtering based on users ratings. The system reads user ratings from a training file and recommends movies to users based on their similarity to other users.
+This project implements a movie recommendation system using collaborative filtering based on users ratings. The system reads user ratings from a training file and recommends movies to users based on their similarity to other users.
 
 ## Features
 
