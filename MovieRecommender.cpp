@@ -9,8 +9,7 @@
 #include <cctype>
 #include "MovieRecommender.h"
 
-
-
+//LETS GO
 using namespace std;
 
 struct movie_ranking {
