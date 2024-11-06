@@ -1,5 +1,5 @@
-#ifndef movie_rec.h
-#define movie_rec.h
+#ifndef MOVIE_RECOMMENDER_H
+#define MOVIE_RECOMMENDER_H
 #include <iostream>
 #include <map>
 #include <vector>
