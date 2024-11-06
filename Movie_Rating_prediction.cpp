@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cctype>
-#include "movie_rec.h"
+#include "MOVIE_REC_H"
 
 using namespace std;
 
