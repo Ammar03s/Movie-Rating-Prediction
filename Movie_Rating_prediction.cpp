@@ -35,10 +35,10 @@ int str_to_int(const string& str) {
 
 
 bool read_users_rating(const string &fileName) {
-    // Open the file to read
+    // Open the file to R
     fstream trainFile(fileName, ios::in);
 
-    // Check if the filesuccessfully opened
+    // Check if the file successfly opened
     if (!trainFile.is_open()) {
         return false;
     }
@@ -48,7 +48,6 @@ bool read_users_rating(const string &fileName) {
     while (getline(trainFile, line)) {
         stringstream ss(line);
         string UserID_str, ItemID_str, Rating_str;
-        
 
         getline(ss, UserID_str, ',');
         getline(ss, ItemID_str, ',');
@@ -68,7 +67,7 @@ bool read_users_rating(const string &fileName) {
             // handle the error here (skipin this line and continue reading the file)
             continue;
         } catch (const std::out_of_range& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            std::cerr << "Errorrrr: " << e.what() << std::endl;
             // handle the error here (skiping this line and continue reading the file)
             continue;
         }
@@ -96,9 +95,9 @@ void rating_average() {
 // Func that uses cosine similarity formula to calc the similarity between the ratings given by the active user and the ratings given by each other user
 unordered_map<int, float> get_similarity(int particular_user) {
     unordered_map<int, float> sim_map;
-
+    
     const auto& particular_user_rating = ranking.at(particular_user);
-
+    
     for (const auto& user_it : ranking) {
         int UserID = user_it.first;
         if (UserID == particular_user) continue;
@@ -124,21 +123,22 @@ unordered_map<int, float> get_similarity(int particular_user) {
 
 void movie_recommendation(int active_user, int K) {
     vector<movie_ranking>* predicted_rating = nullptr;
+    bool needs_cleanup = false; //imp
 
     if (collection.find(active_user) == collection.end()) {
         unordered_map<int, float> corr_active = get_similarity(active_user);
         predicted_rating = new vector<movie_ranking>();
+        needs_cleanup = true; //needs
 
-        for (auto& movie_it : movie_guide) {
+         for (auto& movie_it : movie_guide) {
             int ItemID = movie_it.first;
             float pred_rating = 0;
 
             if (watched_list.find(ItemID) != watched_list.end()) {
                 vector<int>& user_list = watched_list[ItemID];
-
+                
                 for (int UserID : user_list) {
                     if (corr_active.find(UserID) == corr_active.end()) continue;
-
                     pred_rating += corr_active[UserID] * (ranking[UserID][ItemID] - average_users_rating[UserID]);
                 }
             }
@@ -146,8 +146,8 @@ void movie_recommendation(int active_user, int K) {
             movie_ranking m;
             m.item_id = ItemID;
             m.rate = pred_rating;
-
             predicted_rating->push_back(m);
+             
         }
 
         sort(predicted_rating->begin(), predicted_rating->end(), evaluate_movies);
@@ -157,35 +157,22 @@ void movie_recommendation(int active_user, int K) {
         predicted_rating = &collection[active_user];
     }
 
-    cout << "\n" << K << " recommended movies for user: " << active_user << "\n";
+    cout << "\n" << K << " recommended movies for user : " << active_user << "\n";
     for (int i = 0; i < K && i < predicted_rating->size(); ++i) {
         cout << movie_guide[predicted_rating->at(i).item_id] << "\n";
     }
 
-    delete predicted_rating; // Clean up the memory
+    if (needs_cleanup) {
+        delete predicted_rating; //to clean up the memmory
+    }
 }
 
 
 void clear_all() {
     average_users_rating.clear();
     movie_guide.clear();
-
-    for (auto& it : ranking) {
-        it.second.clear();
-    }
-
     ranking.clear();
-
-    for (auto& it : watched_list) {
-        it.second.clear();
-    }
-
     watched_list.clear();
-
-    for (auto& it : collection) {
-        it.second.clear();
-    }
-
     collection.clear();
 }
 
@@ -195,7 +182,7 @@ int main(int argc, char **argv) {
 
     isReadFileOk = false;
     while (!isReadFileOk) {
-        cout << "Pls type the test file:\n";
+        cout << "pls type the test file:\n";
         getline(cin, testFile);
         cout << "Your test file is:- " << testFile << "? Is that correct? \n [Y- Yes| N- No]";
         getline(cin, typeOk);
@@ -204,28 +191,25 @@ int main(int argc, char **argv) {
 
     isReadFileOk = false;
     while (!isReadFileOk) {
-        cout << "Please type the train file:\n";
+        cout << "please type the train file: \n";
         getline(cin, trainFile);
-        cout << "Your train file is: " << trainFile << "? Is that correct? \n [Y- Yes| N- No]";
+        cout << "ur train file is: " << trainFile << "? Is that correct? \n [Y- Yes| N- No]";
         getline(cin, typeOk);
         isReadFileOk = typeOk == "Y" || typeOk == "y";
     }
-    cout << "Okay then...\nStarting with files:\n"
+
+    cout << "Okay then..\nStarting with files:\n"
             "Test file: \"" << testFile << "\"\n"
             "Train file: \"" << trainFile << "\"\n";
 
-    cout << "Reading file \"" << testFile << "\" ...\n";
+    cout << "Reading file \"" << testFile << "\" ....\n";
 
-    // Function that open the file to read it
     fstream testFileStream(testFile, ios::in);
-
-    // Check if the file was successfully opened
     if (!testFileStream.is_open()) {
         cout << testFile << " not possible to open!! pls make sure that it is present/readable!\n";
         return 1;
     }
 
-    // Read data from the file
     string line;
     while (getline(testFileStream, line)) {
         stringstream ss(line);
@@ -240,27 +224,23 @@ int main(int argc, char **argv) {
             movie_guide[NUMBER_ID] = UserID + ItemID;
         } catch (const std::invalid_argument& e) {
             std::cerr << "Error: " << e.what() << std::endl;
-            // handle the error here (skip this line and cont reading the file)
             continue;
         }
     }
-
-
-    // Close the file
+    //choose the file g
     testFileStream.close();
 
     cout << "Reading file \"" << trainFile << "\" ...\n";
     if (read_users_rating(trainFile)) {
-        cout << "Computing User average rating.... \n";
+        cout << "computing User avg rating.. \n";
         rating_average();
 
         for (const auto& [user, _] : ranking) {
-            int K = 10; // recommend 10 movies for each user
-            cout << "Recommendations for user " << user << ":\n";
+            int K = 10;
+            cout << "recommendations for Mr.user " << user << ":\n";
             movie_recommendation(user, K);
             cout << "\n";
         }
-
         return 0;
     }
 
