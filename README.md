@@ -1,22 +1,56 @@
 # Movie Recommendation System
 
-This project implements a movie recommendation system using collaborative filtering based on users ratings. The system reads user ratings from a training file and recommends movies to users based on their similarity to other users.
+A C++ based movie recommendation system that recommends movies to users based on collaborative filtering.
 
 ## Features
 
-- **Reading User Ratings**: Reads user ratings from a training file. Each rating entry contains a user ID, an item (movie) ID, and a rating.
-- **Calculating User Average Ratings**: Calculates the average rating for each user to normalize the ratings.
-- **Cosine Similarity Calculation**: Calculates the similarity between users using the cosine similarity formula based on their ratings.
-- **Movie Recommendation**: Recommends movies to a user based on the ratings of other similar users using a collaborative filtering approach.
-- **Error Handling**: Includes robust error handling for reading and processing input files.
+- **Collaborative Filtering**: Calculates similarity between users to recommend movies.
+- **Adjustable Recommendations**: Number of recommendations per user can be modified.
+- **Efficient Data Storage**: Uses unordered maps for fast lookups and memory efficiency.
 
-## Code Overview
+## File Structure
 
-- `evaluate_movies`: Compares movie ratings.
-- `str_to_int`: Converts a string to an integer with error handling.
-- `read_users_rating`: Reads user ratings from a CSV file and stores them in a data structure.
-- `rating_average`: Computes the average rating for each user.
-- `get_similarity`: Calculates the cosine similarity between users based on their ratings.
-- `movie_recommendation`: Recommends movies to a user based on the similarity to other users and their ratings.
-- `clear_all`: Clears all stored data structures to reset the system.
-- `main`: Interacts with the user to read file names, process data, and display movie recommendations.
+- **`movie_rec.h`**: Header file containing data structures and function declarations.
+- **Training File**: CSV file with user ratings for various movies (`UserID,ItemID,Rating`).
+- **Test File**: CSV file with movie details (`ID,UserID,ItemID`).
+
+## Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/movierec.git
+   ```
+2. **Compile the program** using a C++ compiler:
+   ```bash
+   g++ main.cpp -o movierec
+   ```
+3. **Run the program**:
+   ```bash
+   ./movierec
+   ```
+
+## Usage
+
+1. **Run the program** and enter file paths when prompted:
+   ```
+   Please type the test file:
+   ```
+2. **Confirm file names** as prompted.
+3. The program will calculate and display movie recommendations for each user.
+
+## Code Functions
+
+- **`read_users_rating`**: Reads the training file and stores user ratings.
+- **`rating_average`**: Calculates each user's average rating.
+- **`get_similarity`**: Computes similarity scores between users.
+- **`movie_recommendation`**: Recommends movies based on similarity scores.
+- **`clear_all`**: Clears data to free memory.
+
+## Example Output
+
+```
+10 recommended movies for user: 12345
+Movie 1
+Movie 2
+...
+```
