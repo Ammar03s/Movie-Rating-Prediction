@@ -9,13 +9,6 @@ C++ based movie recommendation system that recommends movies to users based on c
 - Generates movie recommendations for each user based on their similarity to other users
 - Supports clearing data structures and restarting the recommendation process
 
-## Usage
-1. Compile the code using a C++ compiler:
-   ```
-   g++ -o movie_recommender main.cpp
-   ```
-2. Run the program and provide the paths to the training and test files when prompted.
-3. The program will output the top 10 recommended movies for each user.
 
 ## Data Files
 The program expects two data files:
