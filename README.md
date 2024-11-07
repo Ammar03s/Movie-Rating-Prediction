@@ -1,4 +1,4 @@
-# Movie Recommendation System
+# Movie Recommendation System (C++)
 
 This project implements a movie recommender system using collaborative filtering. The goal is to predict movie ratings for users based on their past ratings and the ratings of similar users.
 
