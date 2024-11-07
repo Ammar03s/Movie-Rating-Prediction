@@ -49,13 +49,3 @@ Movie 2
 
 
 
-## Evaluation
-The performance of the recommender system is evaluated using the Root Mean Squared Error (RMSE) metric, which is defined as:
-
-```
-RMSE = sqrt(Σ(y_i - ŷ_i)^2 / n)
-```
-
-where `y_i` is the actual rating and `ŷ_i` is the predicted rating.
-
-
