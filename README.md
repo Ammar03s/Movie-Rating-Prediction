@@ -1,6 +1,6 @@
 # Movie Recommendation System
 
-A C++ based movie recommendation system that recommends movies to users based on collaborative filtering.
+C++ based movie recommendation system that recommends movies to users based on collaborative filtering.
 
 
 ## Features
