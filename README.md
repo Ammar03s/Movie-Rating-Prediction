@@ -2,49 +2,34 @@
 
 A C++ based movie recommendation system that recommends movies to users based on collaborative filtering.
 
+
 ## Features
-
-- **Collaborative Filtering**: Calculates similarity between users to recommend movies.
-- **Adjustable Recommendations**: Number of recommendations per user can be modified.
-- **Efficient Data Storage**: Uses unordered maps for fast lookups and memory efficiency.
-
-## File Structure
-
-- **`movie_rec.h`**: Header file containing data structures and function declarations.
-- **Training File**: CSV file with user ratings for various movies (`UserID,ItemID,Rating`).
-- **Test File**: CSV file with movie details (`ID,UserID,ItemID`).
-
-## Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/movierec.git
-   ```
-2. **Compile the program** using a C++ compiler:
-   ```bash
-   g++ main.cpp -o movierec
-   ```
-3. **Run the program**:
-   ```bash
-   ./movierec
-   ```
+- Calculates average user ratings
+- Computes user similarity using cosine similarity
+- Generates movie recommendations for each user based on their similarity to other users
+- Supports clearing data structures and restarting the recommendation process
 
 ## Usage
-
-1. **Run the program** and enter file paths when prompted:
+1. Compile the code using a C++ compiler:
    ```
-   Please type the test file:
+   g++ -o movie_recommender main.cpp
    ```
-2. **Confirm file names** as prompted.
-3. The program will calculate and display movie recommendations for each user.
+2. Run the program and provide the paths to the training and test files when prompted.
+3. The program will output the top 10 recommended movies for each user.
 
-## Code Functions
+## Data Files
+The program expects two data files:
+1. **Training File**: Contains movie rating data in the format `user_id,item_id,rating`.
+2. **Test File**: Contains user and movie information in the format `id,user_id,item_id`.
 
-- **`read_users_rating`**: Reads the training file and stores user ratings.
-- **`rating_average`**: Calculates each user's average rating.
-- **`get_similarity`**: Computes similarity scores between users.
-- **`movie_recommendation`**: Recommends movies based on similarity scores.
-- **`clear_all`**: Clears data to free memory.
+## Algorithms
+The recommender system uses the following algorithms:
+1. **Average User Rating**: Calculates the average rating for each user.
+2. **User Similarity**: Computes the cosine similarity between the active user's ratings and other users' ratings.
+3. **Predicted Rating**: Calculates the predicted rating for a movie as the sum of the active user's similarity to other users multiplied by the difference between the other user's rating and their average rating.
+4. **Recommendation**: Recommends the top 'K' movies with the highest predicted ratings to the active user.
+
+
 
 ## Example Output
 
